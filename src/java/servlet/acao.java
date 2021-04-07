@@ -188,16 +188,15 @@ public class acao extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             String descricao = request.getParameter("descricao");
             String situacao = request.getParameter("situacao");
-            String valor = (String) request.getParameter("valor_hora");
+            String valor = request.getParameter("valor");
             String observacao = request.getParameter("observacao");            
             // validacoes dos campos - não farei
             // criar OBJ do tipo que será salvo
             Categoria c = new Categoria();
             c.setId(id);
             c.setDescricao(descricao);
-            c.setSituacao('A');
-            //BigDecimal bigInteger = new BigDecimal(valor);
-            //c.setValor(bigInteger);
+            c.setSituacao(situacao);
+            c.setValor(valor);
             c.setObservacao(observacao);
 
             // chamar o salvar e aguardar o retorno

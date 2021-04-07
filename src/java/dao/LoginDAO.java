@@ -73,9 +73,9 @@ public class LoginDAO implements IDAO<Login> {
 
             String sql = "update login "
                     + "set nome = '" + o.getNome() + "', "
-                    + "set sobrenome = '" + o.getSobrenome() + "', "
-                    + "set email = '" + o.getEmail() + "', "
-                    + "set senha = '" + o.getSenha() + "', "
+                    + "sobrenome = '" + o.getSobrenome() + "', "
+                    + "email = '" + o.getEmail() + "', "
+                    + "senha = '" + o.getSenha() + "', "
                     + "situacao = '" + o.getEstado() + "' "
                     + "where id = " + o.getId();
 

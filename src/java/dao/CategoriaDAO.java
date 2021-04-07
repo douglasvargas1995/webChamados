@@ -75,8 +75,8 @@ public class CategoriaDAO implements IDAO<Categoria> {
 
             String sql = "update categoria "
                     + "set descricao = '" + o.getDescricao() + "', "
-                    + "set situacao = '" + o.getSituacao() + "', "
-                    + "set valor_hora = '" + o.getValor() + "', "
+                    + "situacao = '" + o.getSituacao() + "', "
+                    + "valor_hora = '" + o.getValor() + "', "
                     + "observacao = '" + o.getObservacao() + "' "
                     + "where id = " + o.getId();
 
@@ -145,8 +145,8 @@ public class CategoriaDAO implements IDAO<Categoria> {
 
                 c.setId(resultado.getInt("id"));
                 c.setDescricao(resultado.getString("descricao"));
-                c.setSituacao(resultado.getString("situacao").charAt(0));
-                c.setValor(resultado.getBigDecimal("valor_hora"));
+                c.setSituacao(resultado.getString("situacao"));
+                c.setValor(resultado.getString("valor_hora"));
                 c.setObservacao(resultado.getString("observacao"));
                 
 
@@ -181,7 +181,8 @@ public class CategoriaDAO implements IDAO<Categoria> {
 
                 c.setId(resultado.getInt("id"));
                 c.setDescricao(resultado.getString("descricao"));
-                c.setSituacao(resultado.getString("situacao").charAt(0));
+                c.setSituacao(resultado.getString("situacao"));
+                c.setObservacao(resultado.getString("observacao"));
 
                 categorias.add(c);
             }
@@ -213,7 +214,9 @@ public class CategoriaDAO implements IDAO<Categoria> {
 
                 c.setId(resultado.getInt("id"));
                 c.setDescricao(resultado.getString("descricao"));
-                c.setSituacao(resultado.getString("situacao").charAt(0));
+                c.setSituacao(resultado.getString("situacao"));
+                //c.setValor(resultado.getString("valor_hora"));
+                c.setObservacao(resultado.getString("observacao"));
             }
 
         } catch (Exception e) {

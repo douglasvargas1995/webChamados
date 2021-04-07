@@ -22,7 +22,7 @@
                 
                 categoria.setId(0);
                 categoria.setDescricao("");
-                categoria.setSituacao(' ');
+                categoria.setSituacao("");
             }
         %>
 

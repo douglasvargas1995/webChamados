@@ -15,15 +15,15 @@ public class Categoria {
 
     private int id;
     private String descricao;
-    private char situacao;
-    private BigDecimal valor_hora;
+    private String situacao;
+    private String valor_hora;
     private String observacao;
 
-    public BigDecimal getValor() {
+    public String getValor() {
         return valor_hora;
     }
 
-    public void setValor(BigDecimal valor) {
+    public void setValor(String valor) {
         this.valor_hora = valor;
     }
 
@@ -52,11 +52,11 @@ public class Categoria {
         this.descricao = descricao;
     }
 
-    public char getSituacao() {
+    public String getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(char situacao) {
+    public void setSituacao(String situacao) {
         this.situacao = situacao;
     }
 }
