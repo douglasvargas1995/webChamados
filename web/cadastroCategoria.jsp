@@ -21,7 +21,7 @@
             categoria.setId(0);
             categoria.setDescricao("");
             categoria.setSituacao("");
-            categoria.setValor(null);
+            categoria.setValor("");
             categoria.setObservacao("");
 
         }
