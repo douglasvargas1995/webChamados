@@ -14,20 +14,20 @@
     <title>Cadastro de login</title>
     <link rel="stylesheet" href="css/style.css">  
     <%
-    Login login = (Login) request.getAttribute("objLogin");
+        Login login = (Login) request.getAttribute("objLogin");
 
-    if (login == null) {
-        login = new Login();
+        if (login == null) {
+            login = new Login();
 
-        login.setId(0);
-        login.setNome("");
-        login.setSobrenome("");
-        login.setEmail("");
-        login.setSenha("");
-        login.setEstado("");
-    }
+            login.setId(0);
+            login.setNome("");
+            login.setSobrenome("");
+            login.setEmail("");
+            login.setSenha("");
+            login.setEstado("");
+        }
     %>
-    <body>        
+    <body> 
         <div id="main-container">
             <h1>Cadastro de login</h1>
             <form name='formLogin' method='post' action='/WebChamados/acao?param=salvarLogin'>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="half-box">
                     <label for="passconfirmation">Confirmação de senha</label>
-                    <input required="required" type="password" name="passconfirmation" id="passwordconfirmation" placeholder="Digite novamente sua senha" data-equal="senha">
+                    <input required="required" type="password" name="passconfirmation" id="passwordconfirmation" placeholder="Digite novamente sua senha" data-equal="senha" data-password-validate data-required>
                 </div>
                 <div>
                     <input type="checkbox" name="agreement" id="agreement">
@@ -63,5 +63,6 @@
         </div>
         <p class="error-validation template"></p>
         <script src="js/scriptCadastroLogin.js"></script>
+        <%@include file="listausuario.jsp" %>
     </body>
 </html>

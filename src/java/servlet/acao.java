@@ -11,7 +11,6 @@ import entidade.Categoria;
 import entidade.Login;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -98,7 +97,7 @@ public class acao extends HttpServlet {
                 encaminharPagina("erro.jsp", request, response);
             }
         }
-        
+
         // ================= CATEGORIA ====================================== 
         if (param.equals("exCategoria")) {
             String id = request.getParameter("id");
@@ -107,19 +106,49 @@ public class acao extends HttpServlet {
 
             if (categ != null) {
 
-               // request.setAttribute("objCategoria", categ);
-
+                // request.setAttribute("objCategoria", categ);
                 encaminharPagina("cadastroCategoria.jsp", request, response);
             } else {
                 encaminharPagina("erro.jsp", request, response);
             }
         }
-        
+
         // =================== LOGIN ===================================
         if (param.equals("logout")) {
             HttpSession sessao = request.getSession();
             sessao.invalidate();
             response.sendRedirect("login.jsp");
+        }
+        
+        ///EXCLUIR LOGIN
+        if (param.equals("exLogin")) {
+            String id = request.getParameter("id");
+            String log = new LoginDAO().excluir(Integer.parseInt(id));
+
+            if (log != null) {
+
+                //request.setAttribute("objLogin", log);
+                encaminharPagina("cadastroLogin.jsp", request, response);
+            } else {
+                encaminharPagina("erro.jsp", request, response);
+            }
+
+        }
+
+        ///EDITAR LOGIN
+        if (param.equals("edLogin")) {
+            String id = request.getParameter("id");
+            
+            Login log = new LoginDAO().consultarId(Integer.parseInt(id));
+
+            if (log != null) {
+
+                request.setAttribute("objLogin", log);
+
+                encaminharPagina("cadastroLogin.jsp", request, response);
+            } else {
+                encaminharPagina("erro.jsp", request, response);
+            }
         }
 
     }
@@ -140,14 +169,7 @@ public class acao extends HttpServlet {
 
         String param = request.getParameter("param");
 
-        // ================= PESSOA =========================================
-        if (param.equals("salvarPessoa")) {
-            String nome = request.getParameter("nomePessoa");
-            System.out.println("Nome pessoa: " + nome);
-
-            // inacabado
-        }
-        
+        ///SALVAR LOGIN
         if (param.equals("salvarLogin")) {
             int id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
@@ -162,7 +184,7 @@ public class acao extends HttpServlet {
             l.setEmail(email);
             l.setSenha(senha);
             l.setEstado("A");
-            
+
             String retorno = null;
             if (id == 0) {
                 retorno = new LoginDAO().salvar(l);
@@ -189,7 +211,7 @@ public class acao extends HttpServlet {
             String descricao = request.getParameter("descricao");
             String situacao = request.getParameter("situacao");
             String valor = request.getParameter("valor");
-            String observacao = request.getParameter("observacao");            
+            String observacao = request.getParameter("observacao");
             // validacoes dos campos - não farei
             // criar OBJ do tipo que será salvo
             Categoria c = new Categoria();
@@ -219,21 +241,27 @@ public class acao extends HttpServlet {
             }
 
         }
-        
+
+        ///AUTENTICAÇÃO DE LOGIN COM CONSULTA NO BANCO DE DADOS
         if (param.equals("login")) {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
-            
+
             String loginOk = new LoginDAO().consultarLogin(email, senha);
-            
+
             if ("ok".equals(loginOk)) {
                 // deu certo
+                HttpSession sessao = ((HttpServletRequest) request).getSession();
+
+                sessao.setAttribute("usuarioLogado", email);
                 encaminharPagina("menu.jsp", request, response);
-            }else if("n".equals(loginOk)){
+                
+                
+            } else if ("n".equals(loginOk)) {
                 // senha errada
                 encaminharPagina("erroSenha.jsp", request, response);
                 System.out.println("senha errada ou usuario inexistente");
-            }else{
+            } else {
                 System.out.println("usuario inativo");
             }
         }

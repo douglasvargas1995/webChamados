@@ -56,6 +56,7 @@
                                 <li><a class="dropdown-item" href="cadastroCategoria.jsp">Categoria</a></li>
                                 <li><a class="dropdown-item" href="pesquisa.jsp">Pesquisar</a></li>
                                 <li><a class="dropdown-item" href="categoria.jsp">categoria antes</a></li>
+                                <li><a class="dropdown-item" href="listarUsuario.jsp">listar usuario</a></li>
                             </ul>
                         </li>
                         

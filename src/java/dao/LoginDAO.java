@@ -76,7 +76,7 @@ public class LoginDAO implements IDAO<Login> {
                     + "sobrenome = '" + o.getSobrenome() + "', "
                     + "email = '" + o.getEmail() + "', "
                     + "senha = '" + o.getSenha() + "', "
-                    + "situacao = '" + o.getEstado() + "' "
+                    + "estado = '" + o.getEstado() + "' "
                     + "where id = " + o.getId();
 
             System.out.println("SQL: " + sql);
@@ -128,7 +128,36 @@ public class LoginDAO implements IDAO<Login> {
 
     @Override
     public ArrayList<Login> consultarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Login> logins = new ArrayList();
+
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "select * "
+                    + "from "
+                    + "login "
+                    + "order by nome";
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                Login l = new Login();
+
+                l.setId(resultado.getInt("id"));
+                l.setNome(resultado.getString("nome"));
+                l.setSobrenome(resultado.getString("sobrenome"));
+                l.setEmail(resultado.getString("email"));
+                l.setSenha(resultado.getString("senha"));
+                l.setEstado(resultado.getString("estado"));
+
+                logins.add(l);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar login: " + e);
+        }
+
+        return logins;
     }
 
     @Override
@@ -142,8 +171,36 @@ public class LoginDAO implements IDAO<Login> {
     }
 
     @Override
-    public Object consultarId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Login consultarId(int id) {
+        Login c = null;
+
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "select * "
+                    + "from "
+                    + "login "
+                    + "where "
+                    + "id = " + id;
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                c = new Login();
+
+                c.setId(resultado.getInt("id"));
+                c.setNome(resultado.getString("nome"));
+                c.setSobrenome(resultado.getString("sobrenome"));
+                c.setEmail(resultado.getString("email"));
+                c.setSenha(resultado.getString("senha"));
+                c.setEstado(resultado.getString("estado"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar login por ID: " + e);
+        }
+
+        return c;
     }
 
     @Override
