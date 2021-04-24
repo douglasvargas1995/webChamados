@@ -43,20 +43,18 @@
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Início</a>
+                            <a class="nav-link active" aria-current="page" href="menu.jsp">Início</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Relatórios</a>
                         </li>
                         
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown03">
                                 <li><a class="dropdown-item" href="cadastroLogin.jsp">Login</a></li>
                                 <li><a class="dropdown-item" href="cadastroCategoria.jsp">Categoria</a></li>
                                 <li><a class="dropdown-item" href="pesquisa.jsp">Pesquisar</a></li>
-                                <li><a class="dropdown-item" href="categoria.jsp">categoria antes</a></li>
-                                <li><a class="dropdown-item" href="listarUsuario.jsp">listar usuario</a></li>
                             </ul>
                         </li>
                         

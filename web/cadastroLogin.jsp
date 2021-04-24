@@ -53,8 +53,8 @@
                     <input required="required" type="password" name="passconfirmation" id="passwordconfirmation" placeholder="Digite novamente sua senha" data-equal="senha" data-password-validate data-required>
                 </div>
                 <div>
-                    <input type="checkbox" name="agreement" id="agreement">
-                    <label required="required" for="agreement" id="agreement-label">Eu li e aceito os <a href="#">termos de uso</a></label>
+                    <input type="checkbox" name="agreement" id="agreement" required>
+                    <label for="agreement" id="agreement-label">Eu li e aceito os <a href="#">termos de uso</a></label>
                 </div>
                 <div class="full-box">
                     <input id="btn-submit" type="submit" value="Registrar">
