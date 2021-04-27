@@ -4,15 +4,28 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/listausuario.jsp</file>
-            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/cadastroCategoria.jsp</file>
-            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/scriptCadastroLogin.js</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/erroSenha.jsp</file>
             <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/src/java/servlet/acao.java</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/erro.jsp</file>
             <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/src/java/dao/LoginDAO.java</file>
-            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/menu.jsp</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/src/java/entidade/Chamado.java</file>
             <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/src/java/dao/CategoriaDAO.java</file>
             <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/listacategoria.jsp</file>
             <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/login.jsp</file>
             <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/src/java/servlet/filtro.java</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/index.jsp</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/src/java/entidade/Categoria.java</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/categoria.jsp</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/css/dashboard.css</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/cadastroCategoria.jsp</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/pesquisa.jsp</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/scriptCadastroLogin.js</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/cadastroChamado.jsp</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/src/java/entidade/Item_chamado.java</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/exemploinicial.jsp</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/menu.jsp</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/src/java/entidade/Login.java</file>
+            <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/src/java/dao/ChamadoDAO.java</file>
             <file>file:/C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/cadastroLogin.jsp</file>
         </group>
     </open-files>

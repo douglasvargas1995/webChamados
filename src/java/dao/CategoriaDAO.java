@@ -10,6 +10,11 @@ import apoio.IDAO;
 import entidade.Categoria;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
  *
@@ -233,6 +238,23 @@ public class CategoriaDAO implements IDAO<Categoria> {
     @Override
     public boolean consultar(Categoria o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public byte[] gerarRelatorio() {
+        try {
+            Connection conn = ConexaoBD.getInstance().getConnection();
+
+            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/relcategorias.jrxml"));
+
+            Map parameters = new HashMap();
+
+            byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
+
+            return bytes;
+        } catch (Exception e) {
+            System.out.println("erro ao gerar relatorio: " + e);
+        }
+        return null;
     }
 
 }

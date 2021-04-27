@@ -45,8 +45,13 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="menu.jsp">Início</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Relatórios</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                                <li><a class="dropdown-item" href="relcategoria.jsp">Categoria</a></li>
+                                <li><a class="dropdown-item" href="#">Login</a></li>
+                                <li><a class="dropdown-item" href="#">Chamados</a></li>
+                            </ul>
                         </li>
                         
                         <li class="nav-item dropdown">
@@ -54,7 +59,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdown03">
                                 <li><a class="dropdown-item" href="cadastroLogin.jsp">Login</a></li>
                                 <li><a class="dropdown-item" href="cadastroCategoria.jsp">Categoria</a></li>
-                                <li><a class="dropdown-item" href="pesquisa.jsp">Pesquisar</a></li>
+                                <li><a class="dropdown-item" href="cadastroChamado.jsp">Chamado</a></li>
                             </ul>
                         </li>
                         
