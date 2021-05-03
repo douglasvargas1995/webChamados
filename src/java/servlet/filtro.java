@@ -101,6 +101,7 @@ public class filtro extends HttpServlet implements Filter {
         urls.add("/WebChamados/acao");
         urls.add("/WebChamados/index.jsp");
         urls.add("/WebChamados/login.jsp");
+        urls.add("/WebChamados/menu-dash.jsp");
         urls.add("/WebChamados/img/logo.png");
         urls.add("/WebChamados/css/bootstrap.min.css");
         urls.add("/WebChamados/css/signin.css");

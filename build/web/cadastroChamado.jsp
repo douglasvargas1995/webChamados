@@ -33,11 +33,19 @@
             <h1>Ticket Chamado</h1>
             <form name='formChamado' method='post' action='/WebChamados/acao?param=salvarChamado'>
                 <input type="hidden" name="id" value="<%= chamado.getId()%>">
-                
+            <div class="half-box spacing">
+                    <label for="name">Data Inicial</label>
+                    <input required="required" type="date" name="data_inicial" value="#">
+                </div>
+                <div class="half-box">
+                    <label for="lastname">Data final</label>
+                    <input required="required" type="date" name="data_final" value="#">
+                </div>    
             <input type="text" name="campoDeBusca" placeholder="Digite o que deseja pesquisar">
 
             <input type="submit" value="Pesquisar">
 
             </form>
+            <%@include file="listachamado.jsp" %>
     </body>
 </html>

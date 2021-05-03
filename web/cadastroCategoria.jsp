@@ -6,12 +6,12 @@
 
 <%@page import="java.math.BigDecimal"%>
 <html lang="en">
-    <%@include file="menu.jsp" %>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cadastro de categoria</title>
-    <link rel="stylesheet" href="css/style.css">    
+    <link rel="stylesheet" href="css/style.css">
     <%
         Categoria categoria = (Categoria) request.getAttribute("objCategoria");
 
@@ -26,6 +26,7 @@
 
         }
     %>
+    <%@include file="menu.jsp" %>
     <body>        
         <div id="main-container">
             <h1>Cadastro de categoria</h1>

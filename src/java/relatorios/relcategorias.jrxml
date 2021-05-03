@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relcategorias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13bf0f13-ae7b-418f-85e1-60ff4a9e9412">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Ferrados_Web"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="WebChamados"/>
 	<queryString language="SQL">
 		<![CDATA[select * 
 from
@@ -24,17 +24,49 @@ order by descricao]]>
 		<property name="com.jaspersoft.studio.field.label" value="situacao"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="categoria"/>
 	</field>
+	<field name="valor_hora" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valor_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="valor_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categoria"/>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categoria"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="64" splitType="Stretch">
+		<band height="75" splitType="Stretch">
 			<staticText>
-				<reportElement x="130" y="0" width="277" height="30" uuid="9c26501d-a649-4e01-a105-18ddbbe136be"/>
+				<reportElement x="80" y="0" width="280" height="30" uuid="9c26501d-a649-4e01-a105-18ddbbe136be"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font fontName="Arial Narrow" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Listagem: Cadastro de categorias]]></text>
+				<text><![CDATA[Listagem de categorias]]></text>
+			</staticText>
+			<image>
+				<reportElement x="20" y="5" width="60" height="61" uuid="a01f0f23-f69a-48e8-a7bb-e9a969cc7020"/>
+				<imageExpression><![CDATA["C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/img/logo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="520" y="0" width="35" height="30" uuid="53761095-7a44-435e-98cc-f311587f4169"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="450" y="40" width="100" height="30" uuid="8fb9cc24-3c12-49ea-ba35-965470646965"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="40" width="60" height="30" uuid="cce89e4e-c7ea-46b7-875f-433e8ff81ae3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gerado em -]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -42,38 +74,47 @@ order by descricao]]>
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="34" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="30" uuid="02d62d07-21d6-4a82-8844-9291832ecd70">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f676ca76-b1d2-4c26-b484-565186f65eb9"/>
 				</reportElement>
 				<textElement>
-					<font isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[id]]></text>
+				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="119" y="0" width="100" height="30" uuid="cfee1405-54b4-4414-8967-f99e0f67c1bd">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="576d4144-94d6-4e44-8209-743556724935"/>
 				</reportElement>
 				<textElement>
-					<font isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[descricao]]></text>
+				<text><![CDATA[Descrição]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="450" y="0" width="100" height="30" uuid="efee81b4-4cb0-456e-b8f8-32ad5193e855">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dba392b6-cba4-4ce4-8155-e292b1c2e558"/>
 				</reportElement>
 				<textElement>
-					<font isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[situacao]]></text>
+				<text><![CDATA[Situação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="0" width="100" height="30" uuid="f3f56abd-20ed-438f-b48c-8e5c310a8666">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4cb6e98f-236a-4aae-93fa-99a0df47271a"/>
+				</reportElement>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor / Hora]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="34" splitType="Stretch">
+		<band height="35" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="-1" width="100" height="30" uuid="e228a3d7-2946-4176-a75e-3ac32039570a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f676ca76-b1d2-4c26-b484-565186f65eb9"/>
@@ -91,6 +132,12 @@ order by descricao]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dba392b6-cba4-4ce4-8155-e292b1c2e558"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{situacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="1" width="100" height="30" uuid="c47c9a2b-8753-460b-82ff-bfc073804d2a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4cb6e98f-236a-4aae-93fa-99a0df47271a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{valor_hora}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

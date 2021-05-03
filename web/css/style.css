@@ -19,8 +19,8 @@ a {
 }
 
 body {
-  padding-top: 5vh;
-  background-image: url('img/fundo.jpg');
+  padding-top: 0vh;
+  background-image: url('/img/fundo.jpg');
   background-size: cover;
   background-position-y: -150px;
 }

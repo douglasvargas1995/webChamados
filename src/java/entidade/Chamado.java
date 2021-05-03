@@ -13,6 +13,7 @@ public class Chamado {
     private Date data_inicial;
     private Date data_final;
     private String estado;
+    private String descricao;
 
     public int getId() {
         return id;
@@ -60,6 +61,14 @@ public class Chamado {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
 }
