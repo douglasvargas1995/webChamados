@@ -106,7 +106,8 @@ public class LoginDAO implements IDAO<Login> {
             Statement st = ConexaoBD.getInstance().getConnection().createStatement();
 
             String sql = ""
-                    + "DELETE FROM login "
+                    + "Update login "
+                    + "set estado = 'I' "
                     + "WHERE id = " + id;
 
             System.out.println("sql: " + sql);
@@ -136,6 +137,7 @@ public class LoginDAO implements IDAO<Login> {
             String sql = "select * "
                     + "from "
                     + "login "
+                    + "WHERE estado = 'A' "
                     + "order by nome";
 
             ResultSet resultado = st.executeQuery(sql);

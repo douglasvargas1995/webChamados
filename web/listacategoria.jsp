@@ -23,11 +23,11 @@
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <th>#</th>
-                <th>Ação</th>
                 <th>Descrição</th>
                 <th>Situação</th>
                 <th>Valor Hora</th>
                 <th>Observação</th>
+                <th>   Ação</th>
 
                 <%
                     for (int i = 0; i < categorias.size(); i++) {
@@ -35,11 +35,13 @@
                 %>
                 <tr>
                     <td><%= categ.getId()%></td>
-                    <td><a href='/WebChamados/acao?param=edCategoria&id=<%= categ.getId()%>'>Editar</a>   <a href='/WebChamados/acao?param=exCategoria&id=<%= categ.getId()%>'>Excluir</a></td>
                     <td><%= categ.getDescricao()%></td>
                     <td><%= categ.getSituacao()%></td>
                     <td><%= categ.getValor()%></td>
                     <td><%= categ.getObservacao()%></td>
+                    <td><a href='/WebChamados/acao?param=exCategoria&id=<%= categ.getId()%>'><button style="background: #01DF3A; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Editar</button></a>
+                        <a href='/WebChamados/acao?param=exCategoria&id=<%= categ.getId()%>'><button style="background: #FF0000; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Excluir</button></a>
+                    <td>
                 </tr>
 
                 <%

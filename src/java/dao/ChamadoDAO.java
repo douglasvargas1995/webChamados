@@ -7,11 +7,12 @@ package dao;
 
 import apoio.ConexaoBD;
 import apoio.IDAO;
-import entidade.Categoria;
 import entidade.Chamado;
+import entidade.Data;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -36,14 +37,17 @@ public class ChamadoDAO implements IDAO<Chamado> {
 
     @Override
     public ArrayList<Chamado> consultarTodos() {
-       
+
         ArrayList<Chamado> chamados = new ArrayList();
 
         try {
             Statement st = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "select * from chamado ";
-
+            String sql = "SELECT c.id,l.email,c.descricao AS descricao_chamado, cl.descricao AS descricao_classifica,c.data_inicial,c.data_final,c.estado "
+                    + "FROM chamado c "
+                    + "INNER JOIN item_chamado it on it.id = c.id_item_chamado "
+                    + "INNER JOIN login l on l.id=c.id_login "
+                    + "INNER JOIN classifica cl on cl.id = it.id_classifica";
 
             ResultSet resultado = st.executeQuery(sql);
 
@@ -51,10 +55,13 @@ public class ChamadoDAO implements IDAO<Chamado> {
                 Chamado c = new Chamado();
 
                 c.setId(resultado.getInt("id"));
-                c.setDescricao(resultado.getString("descricao"));
+                c.setDescricao_chamado(resultado.getString("descricao_chamado"));
+                c.setDescricao_classifica(resultado.getString("descricao_classifica"));
+                c.setEmail(resultado.getString("email"));
                 c.setData_inicial(resultado.getDate("data_inicial"));
+                c.setData_final(resultado.getDate("data_final"));
                 c.setEstado(resultado.getString("estado"));
-                
+
                 chamados.add(c);
             }
 
@@ -85,4 +92,33 @@ public class ChamadoDAO implements IDAO<Chamado> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+        public String finalizar(int id) {
+
+        String saida = null;
+
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = ""
+                    + "Update chamado "
+                    + "set estado = 'I', "
+                    + "data_final = '" + Data.formatarData(new Date()) + "' "
+                    + "WHERE id = " + id;
+
+            System.out.println("sql: " + sql);
+
+            int resultado = st.executeUpdate(sql);
+
+            if (resultado != 0) {
+                saida = "ok";
+            } else {
+                saida = null;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro excluir login = " + e);
+            return e.toString();
+        }
+        return saida;
+    }
 }

@@ -21,10 +21,13 @@
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <th>#</th>
-                <th>Ação</th>
+                <th>Solicitante</th>
                 <th>Descrição</th>
+                <th>Classificação</th>
                 <th>Aberto em</th>
+                <th>Finalizado em</th>
                 <th>Situação</th>
+                <th>Ação</th>
 
                 <%
                     for (int i = 0; i < chamados.size(); i++) {
@@ -32,10 +35,15 @@
                 %>
                 <tr>
                     <td><%= chama.getId()%></td>
-                    <td><a href='/WebChamados/acao?param=edChamado=<%= chama.getId()%>'>Editar</a>   <a href='/WebChamados/acao?param=exChamado&id=<%= chama.getId()%>'>Excluir</a></td>
-                    <td><%= chama.getDescricao()%></td>
+                    <td><%= chama.getEmail()%></td>
+                    <td><%= chama.getDescricao_chamado()%></td>
+                    <td><%= chama.getDescricao_classifica()%></td>
                     <td><%= chama.getData_inicial()%></td>
+                    <td><%= chama.getData_final()%></td>
                     <td><%= chama.getEstado()%></td>
+                    <td><a href='/WebChamados/acao?param=addItem&id=<%= chama.getId()%>'><button style="background: #2E2E2E; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">+</button></a>
+                        <a href='/WebChamados/acao?param=finalizarChamado&id=<%= chama.getId()%>'><button style="background: #FF0000; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Finalizar</button></a>
+                    <td>
                 </tr>
 
                 <%

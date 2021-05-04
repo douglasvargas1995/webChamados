@@ -6,8 +6,10 @@
 package servlet;
 
 import dao.CategoriaDAO;
+import dao.ChamadoDAO;
 import dao.LoginDAO;
 import entidade.Categoria;
+import entidade.Chamado;
 import entidade.Login;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -119,7 +121,7 @@ public class acao extends HttpServlet {
             sessao.invalidate();
             response.sendRedirect("login.jsp");
         }
-        
+
         ///EXCLUIR LOGIN
         if (param.equals("exLogin")) {
             String id = request.getParameter("id");
@@ -138,7 +140,7 @@ public class acao extends HttpServlet {
         ///EDITAR LOGIN
         if (param.equals("edLogin")) {
             String id = request.getParameter("id");
-            
+
             Login log = new LoginDAO().consultarId(Integer.parseInt(id));
 
             if (log != null) {
@@ -147,6 +149,29 @@ public class acao extends HttpServlet {
 
                 encaminharPagina("cadastroLogin.jsp", request, response);
             } else {
+                encaminharPagina("erro.jsp", request, response);
+            }
+        }
+
+        //FINALIZAR CHAMADO
+        if (param.equals("finalizarChamado")) {
+
+            String retorno = null;
+            // capturar dados que vieram do REQUEST
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            retorno = new ChamadoDAO().finalizar(id);
+
+            if ("ok".equals(retorno)) {
+                // deu certo
+                request.setAttribute("tipoCadastro", "Chamado");
+                
+                request.setAttribute("paginaRetorno", "cadastroChamado.jsp");
+                
+                encaminharPagina("cadastroChamado.jsp", request, response);
+                //exibir um alert
+            } else {
+                // deu errado
                 encaminharPagina("erro.jsp", request, response);
             }
         }
@@ -255,8 +280,7 @@ public class acao extends HttpServlet {
 
                 sessao.setAttribute("usuarioLogado", email);
                 encaminharPagina("cadastroChamado.jsp", request, response);
-                
-                
+
             } else if ("n".equals(loginOk)) {
                 // senha errada
                 encaminharPagina("erroSenha.jsp", request, response);
@@ -265,6 +289,7 @@ public class acao extends HttpServlet {
                 System.out.println("usuario inativo");
             }
         }
+
     }
 
     /**

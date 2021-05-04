@@ -23,23 +23,26 @@
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <th>#</th>
-                <th>Ação</th>
                 <th>Nome</th>
                 <th>Sobrenome</th>
                 <th>Email</th>
                 <th>Estado</th>
+                <th>   Ação</th>
 
                 <%
-                    for (int i = 0; i < lo .size(); i++) {
-                        Login lg = lo .get(i);
+                    for (int i = 0; i < lo.size(); i++) {
+                        Login lg = lo.get(i);
                 %>
                 <tr>
                     <td><%= lg.getId()%></td>
-                    <td><a href='/WebChamados/acao?param=edLogin&id=<%= lg.getId()%>'>Editar</a>   <a href='/WebChamados/acao?param=exLogin&id=<%= lg.getId()%>'>Excluir</a></td>
                     <td><%= lg.getNome()%></td>
                     <td><%= lg.getSobrenome()%></td>
                     <td><%= lg.getEmail()%></td>
                     <td><%= lg.getEstado()%></td>
+                    <td><a href='/WebChamados/acao?param=edLogin&id=<%= lg.getId()%>'><button style="background: #01DF3A; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Editar</button></a>
+                        <a href='/WebChamados/acao?param=exLogin&id=<%= lg.getId()%>'><button style="background: #FF0000; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Excluir</button></a>
+                    <td>
+                    
                 </tr>
 
                 <%

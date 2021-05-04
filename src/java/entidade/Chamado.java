@@ -14,6 +14,34 @@ public class Chamado {
     private Date data_final;
     private String estado;
     private String descricao;
+    private String email;
+    private String descricao_chamado;
+    private String descricao_classifica;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDescricao_chamado() {
+        return descricao_chamado;
+    }
+
+    public void setDescricao_chamado(String descricao_chamado) {
+        this.descricao_chamado = descricao_chamado;
+    }
+
+    public String getDescricao_classifica() {
+        return descricao_classifica;
+    }
+
+    public void setDescricao_classifica(String descricao_classifica) {
+        this.descricao_classifica = descricao_classifica;
+    }
+    
 
     public int getId() {
         return id;
@@ -62,13 +90,12 @@ public class Chamado {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    public String getDescricao() {
+    
+     public String getDescricao() {
         return descricao;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
 }
