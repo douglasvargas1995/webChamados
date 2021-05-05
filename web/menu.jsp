@@ -49,7 +49,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown03">
                                 <li><a class="dropdown-item" href="relcategoria.jsp">Categoria</a></li>
-                                <li><a class="dropdown-item" href="#">Login</a></li>
+                                <li><a class="dropdown-item" href="relusuarios.jsp">Login</a></li>
                                 <li><a class="dropdown-item" href="#">Chamados</a></li>
                             </ul>
                         </li>
