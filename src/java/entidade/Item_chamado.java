@@ -9,8 +9,27 @@ public class Item_chamado {
     private int id;
     private int id_categoria;
     private int id_classifica;
+    private int id_chamado;
     private double valor;
     private String descricao;
+    private String categoria;
+    private String classificacao;
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(String classificacao) {
+        this.classificacao = classificacao;
+    }
 
     public int getId() {
         return id;
@@ -50,5 +69,13 @@ public class Item_chamado {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    
+    public int getId_chamado() {
+        return id_chamado;
+    }
+
+    public void setId_chamado(int id_chamado) {
+        this.id_chamado = id_chamado;
     }
 }

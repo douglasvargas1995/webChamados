@@ -186,6 +186,7 @@ public class CategoriaDAO implements IDAO<Categoria> {
                 c.setId(resultado.getInt("id"));
                 c.setDescricao(resultado.getString("descricao"));
                 c.setSituacao(resultado.getString("situacao"));
+                c.setValor(resultado.getString("valor_hora"));
                 c.setObservacao(resultado.getString("observacao"));
 
                 categorias.add(c);

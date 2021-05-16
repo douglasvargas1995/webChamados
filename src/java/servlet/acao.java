@@ -153,7 +153,7 @@ public class acao extends HttpServlet {
             }
         }
 
-        //FINALIZAR CHAMADO
+        //FINALIZAR CHAMADO -ok
         if (param.equals("finalizarChamado")) {
 
             String retorno = null;
@@ -165,142 +165,212 @@ public class acao extends HttpServlet {
             if ("ok".equals(retorno)) {
                 // deu certo
                 request.setAttribute("tipoCadastro", "Chamado");
-                
-                request.setAttribute("paginaRetorno", "cadastroChamado.jsp");
-                
-                encaminharPagina("cadastroChamado.jsp", request, response);
+
+                request.setAttribute("paginaRetorno", "chamado.jsp");
+
+                encaminharPagina("chamado.jsp", request, response);
                 //exibir um alert
             } else {
                 // deu errado
                 encaminharPagina("erro.jsp", request, response);
             }
         }
+        //EDITAR CHAMADO
+        if (param.equals("editarChamado")) {
+            String id = request.getParameter("id");
 
+            Chamado chama = new ChamadoDAO().consultarId(Integer.parseInt(id));
+
+            if (chama != null) {
+
+                request.setAttribute("objChamado", chama);
+
+                encaminharPagina("cadastraChamado.jsp", request, response);
+            } else {
+                encaminharPagina("erro.jsp", request, response);
+            }
+
+        }
+        
+        //ATENDER CHAMADO
+        if (param.equals("atenderChamado")) {
+            String id = request.getParameter("id");
+
+            Chamado chama = new ChamadoDAO().consultarId(Integer.parseInt(id));
+
+            if (chama != null) {
+
+                request.setAttribute("objChamado", chama);
+
+                encaminharPagina("itemChamado.jsp", request, response);
+            } else {
+                encaminharPagina("erro.jsp", request, response);
+            }
+
+        }
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        /**
+         * Handles the HTTP <code>POST</code> method.
+         *
+         * @param request servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException if an I/O error occurs
+         */
+        @Override
+        protected void doPost
+        (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
-        System.out.println("ESTOU no POST");
+            // processRequest(request, response);
+            System.out.println("ESTOU no POST");
 
-        String param = request.getParameter("param");
+            String param = request.getParameter("param");
 
-        ///SALVAR LOGIN
-        if (param.equals("salvarLogin")) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            String nome = request.getParameter("nome");
-            String sobrenome = request.getParameter("sobrenome");
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-            String estado = request.getParameter("estado");
-            Login l = new Login();
-            l.setId(id);
-            l.setNome(nome);
-            l.setSobrenome(sobrenome);
-            l.setEmail(email);
-            l.setSenha(senha);
-            l.setEstado("A");
+            ///SALVAR LOGIN
+            if (param.equals("salvarLogin")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String nome = request.getParameter("nome");
+                String sobrenome = request.getParameter("sobrenome");
+                String email = request.getParameter("email");
+                String senha = request.getParameter("senha");
+                Login l = new Login();
+                l.setId(id);
+                l.setNome(nome);
+                l.setSobrenome(sobrenome);
+                l.setEmail(email);
+                l.setSenha(senha);
+                l.setEstado("A");
 
-            String retorno = null;
-            if (id == 0) {
-                retorno = new LoginDAO().salvar(l);
-            } else {
-                retorno = new LoginDAO().atualizar(l);
+                String retorno = null;
+                if (id == 0) {
+                    retorno = new LoginDAO().salvar(l);
+                } else {
+                    retorno = new LoginDAO().atualizar(l);
+                }
+
+                if (retorno == null) {
+                    // deu certo
+                    request.setAttribute("tipoCadastro", "Login");
+                    request.setAttribute("paginaRetorno", "cadastroLogin.jsp");
+
+                    encaminharPagina("sucesso.jsp", request, response);
+                } else {
+                    // deu errado
+                    encaminharPagina("erro.jsp", request, response);
+                }
             }
 
-            if (retorno == null) {
-                // deu certo
-                request.setAttribute("tipoCadastro", "Login");
-                request.setAttribute("paginaRetorno", "cadastroLogin.jsp");
+            // ================= CATEGORIA ======================================
+            if (param.equals("salvarCategoria")) {
+                // capturar dados que vieram do REQUEST
+                int id = Integer.parseInt(request.getParameter("id"));
+                String descricao = request.getParameter("descricao");
+                String situacao = request.getParameter("situacao");
+                String valor = request.getParameter("valor");
+                String observacao = request.getParameter("observacao");
+                // validacoes dos campos - não farei
+                // criar OBJ do tipo que será salvo
+                Categoria c = new Categoria();
+                c.setId(id);
+                c.setDescricao(descricao);
+                c.setSituacao(situacao);
+                c.setValor(valor);
+                c.setObservacao(observacao);
 
-                encaminharPagina("sucesso.jsp", request, response);
-            } else {
-                // deu errado
-                encaminharPagina("erro.jsp", request, response);
+                // chamar o salvar e aguardar o retorno
+                String retorno = null;
+                if (id == 0) {
+                    retorno = new CategoriaDAO().salvar(c);
+                } else {
+                    retorno = new CategoriaDAO().atualizar(c);
+                }
+
+                if (retorno == null) {
+                    // deu certo
+                    request.setAttribute("tipoCadastro", "Categoria");
+                    request.setAttribute("paginaRetorno", "cadastroCategoria.jsp");
+
+                    encaminharPagina("sucesso.jsp", request, response);
+                } else {
+                    // deu errado
+                    encaminharPagina("erro.jsp", request, response);
+                }
+
             }
+            
+             // ================= CHAMADO ======================================
+            if (param.equals("salvarChamado")) {
+                // capturar dados que vieram do REQUEST
+                int id = Integer.parseInt(request.getParameter("id"));
+                String descricao = request.getParameter("descricao");
+                String observacao = request.getParameter("observacao");
+                // validacoes dos campos - não farei
+                // criar OBJ do tipo que será salvo
+                Chamado c = new Chamado();
+                c.setId(id);
+                c.setDescricao(descricao);
+                c.setObservacao(observacao);
+
+                // chamar o salvar e aguardar o retorno
+                String retorno = null;
+                if (id == 0) {
+                    retorno = new ChamadoDAO().salvar(c);
+                } else {
+                    retorno = new ChamadoDAO().atualizar(c);
+                }
+
+                if (retorno == null) {
+                    // deu certo
+                    request.setAttribute("tipoCadastro", "Chamado");
+                    request.setAttribute("paginaRetorno", "cadastraChamado.jsp");
+
+                    encaminharPagina("sucesso.jsp", request, response);
+                } else {
+                    // deu errado
+                    encaminharPagina("erro.jsp", request, response);
+                }
+
+            }
+            
+
+            ///AUTENTICAÇÃO DE LOGIN COM CONSULTA NO BANCO DE DADOS
+            if (param.equals("login")) {
+                String email = request.getParameter("email");
+                String senha = request.getParameter("senha");
+
+                String loginOk = new LoginDAO().consultarLogin(email, senha);
+
+                if ("ok".equals(loginOk)) {
+                    // deu certo
+                    HttpSession sessao = ((HttpServletRequest) request).getSession();
+
+                    sessao.setAttribute("usuarioLogado", email);
+                    encaminharPagina("chamado.jsp", request, response);
+
+                } else if ("n".equals(loginOk)) {
+                    // senha errada
+                    encaminharPagina("erroSenha.jsp", request, response);
+                    System.out.println("senha errada ou usuario inexistente");
+                } else {
+                    System.out.println("usuario inativo");
+                }
+            }
+
         }
 
-        // ================= CATEGORIA ======================================
-        if (param.equals("salvarCategoria")) {
-            // capturar dados que vieram do REQUEST
-            int id = Integer.parseInt(request.getParameter("id"));
-            String descricao = request.getParameter("descricao");
-            String situacao = request.getParameter("situacao");
-            String valor = request.getParameter("valor");
-            String observacao = request.getParameter("observacao");
-            // validacoes dos campos - não farei
-            // criar OBJ do tipo que será salvo
-            Categoria c = new Categoria();
-            c.setId(id);
-            c.setDescricao(descricao);
-            c.setSituacao(situacao);
-            c.setValor(valor);
-            c.setObservacao(observacao);
-
-            // chamar o salvar e aguardar o retorno
-            String retorno = null;
-            if (id == 0) {
-                retorno = new CategoriaDAO().salvar(c);
-            } else {
-                retorno = new CategoriaDAO().atualizar(c);
-            }
-
-            if (retorno == null) {
-                // deu certo
-                request.setAttribute("tipoCadastro", "Categoria");
-                request.setAttribute("paginaRetorno", "cadastroCategoria.jsp");
-
-                encaminharPagina("sucesso.jsp", request, response);
-            } else {
-                // deu errado
-                encaminharPagina("erro.jsp", request, response);
-            }
-
-        }
-
-        ///AUTENTICAÇÃO DE LOGIN COM CONSULTA NO BANCO DE DADOS
-        if (param.equals("login")) {
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-
-            String loginOk = new LoginDAO().consultarLogin(email, senha);
-
-            if ("ok".equals(loginOk)) {
-                // deu certo
-                HttpSession sessao = ((HttpServletRequest) request).getSession();
-
-                sessao.setAttribute("usuarioLogado", email);
-                encaminharPagina("cadastroChamado.jsp", request, response);
-
-            } else if ("n".equals(loginOk)) {
-                // senha errada
-                encaminharPagina("erroSenha.jsp", request, response);
-                System.out.println("senha errada ou usuario inexistente");
-            } else {
-                System.out.println("usuario inativo");
-            }
-        }
-
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+        @Override
+        public String getServletInfo
+        
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
+
+    
 
     private void encaminharPagina(String pagina, HttpServletRequest request, HttpServletResponse response) {
         try {

@@ -39,9 +39,11 @@
                     <td><%= categ.getSituacao()%></td>
                     <td><%= categ.getValor()%></td>
                     <td><%= categ.getObservacao()%></td>
-                    <td><a href='/WebChamados/acao?param=exCategoria&id=<%= categ.getId()%>'><button style="background: #01DF3A; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Editar</button></a>
-                        <a href='/WebChamados/acao?param=exCategoria&id=<%= categ.getId()%>'><button style="background: #FF0000; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Excluir</button></a>
+                    <td><a href='/WebChamados/acao?param=edCategoria&id=<%= categ.getId()%>'<input type="button" class="btn-sm btn-primary" value="Editar">Editar</a>
+                        <a href='/WebChamados/acao?param=exCategoria&id=<%= categ.getId()%>'<input type="button" class="btn-sm btn-danger" value="Remover">Remover</a>
                     <td>
+                        
+                        
                 </tr>
 
                 <%

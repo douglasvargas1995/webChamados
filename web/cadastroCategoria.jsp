@@ -6,7 +6,7 @@
 
 <%@page import="java.math.BigDecimal"%>
 <html lang="en">
-    
+    <%@include file="menu.jsp" %>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -26,7 +26,7 @@
 
         }
     %>
-    <%@include file="menu.jsp" %>
+    
     <body>        
         <div id="main-container">
             <h1>Cadastro de categoria</h1>
@@ -39,15 +39,18 @@
                 <div class="full-box">
                     <label for="valor">Valor</label>
                     <input required="required" type="number" name="valor" value="<%= categoria.getValor()%>" placeholder="Digite o valor da categoria em R$" data-required data-only-letters>
+
                 </div>
                 <div class="full-box">
                     <label for="observacao">Observação</label>
+
                     <input type="text" name="observacao" value="<%= categoria.getObservacao()%>" placeholder="Digite a observação da categoria" data-required data-only-letters>
                 </div>
                 <div class="full-box">
                     <label for="situacao">Situação</label>
                     <input required="required" type="text" name="situacao" value="<%= categoria.getSituacao()%>" placeholder="Digite a situação da categoria" data-required data-only-letters>
                 </div>
+
 
                 <div class="full-box">
                     <input id="btn-submit" type="submit" value="Registrar">

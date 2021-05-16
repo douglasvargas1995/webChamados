@@ -39,8 +39,8 @@
                     <td><%= lg.getSobrenome()%></td>
                     <td><%= lg.getEmail()%></td>
                     <td><%= lg.getEstado()%></td>
-                    <td><a href='/WebChamados/acao?param=edLogin&id=<%= lg.getId()%>'><button style="background: #01DF3A; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Editar</button></a>
-                        <a href='/WebChamados/acao?param=exLogin&id=<%= lg.getId()%>'><button style="background: #FF0000; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Excluir</button></a>
+                    <td><a href='/WebChamados/acao?param=edLogin&id=<%= lg.getId()%>'<input type="button" class="btn-sm btn-primary" value="Editar">Editar</a>
+                        <a href='/WebChamados/acao?param=exLogin&id=<%= lg.getId()%>'<input type="button" class="btn-sm btn-danger" value="Remover">Remover</a>
                     <td>
                     
                 </tr>

@@ -4,6 +4,7 @@
     Author     : Douglas
 --%>
 
+<%@page import="entidade.Classifica"%>
 <%@page import="entidade.Item_chamado"%>
 <%@page import="java.util.Date"%>
 <%@page import="entidade.Chamado"%>
@@ -16,7 +17,7 @@
     <%
         Chamado chamado = (Chamado) request.getAttribute("objChamado");
         Item_chamado item_chamado = (Item_chamado) request.getAttribute("objItem_chamado");
-        
+
         if (chamado == null) {
             chamado = new Chamado();
 
@@ -29,23 +30,25 @@
         }
     %>
     <body>        
-        
-            <h1>Ticket Chamado</h1>
-            <form name='formChamado' method='post' action='/WebChamados/acao?param=salvarChamado'>
-                <input type="hidden" name="id" value="<%= chamado.getId()%>">
+
+        <h1>Ticket Chamado</h1>
+        <form name='formChamado' method='post' action='/WebChamados/acao?param=salvarChamado'>
+            <input type="hidden" name="id" value="<%= chamado.getId()%>">
             <div class="half-box spacing">
-                    <label for="name">Data Inicial</label>
-                    <input required="required" type="date" name="data_inicial" value="#">
-                </div>
-                <div class="half-box">
-                    <label for="lastname">Data final</label>
-                    <input required="required" type="date" name="data_final" value="#">
-                </div>    
+                <label for="name">Data Inicial</label>
+                <input required="required" type="date" name="data_inicial" value="#">
+            </div>
+            <div class="half-box">
+                <label for="lastname">Data final</label>
+                <input required="required" type="date" name="data_final" value="#">
+            </div>
             <input type="text" name="campoDeBusca" placeholder="Digite o que deseja pesquisar">
 
             <input type="submit" value="Pesquisar">
 
-            </form>
-            <%@include file="listachamado.jsp" %>
+        </form>
+        <p class="error-validation template"></p>
+        <script src="js/scriptCadastroLogin.js"></script>
+        <%@include file="listachamado.jsp" %>
     </body>
 </html>

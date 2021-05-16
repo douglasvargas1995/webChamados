@@ -17,6 +17,24 @@ public class Chamado {
     private String email;
     private String descricao_chamado;
     private String descricao_classifica;
+    private Double valor_total;
+    private String Observacao;
+
+    public String getObservacao() {
+        return Observacao;
+    }
+
+    public void setObservacao(String Observacao) {
+        this.Observacao = Observacao;
+    }
+
+    public Double getValor_total() {
+        return valor_total;
+    }
+
+    public void setValor_total(Double valor_total) {
+        this.valor_total = valor_total;
+    }
 
     public String getEmail() {
         return email;

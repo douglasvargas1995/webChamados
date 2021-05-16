@@ -23,9 +23,8 @@
                 <th>#</th>
                 <th>Solicitante</th>
                 <th>Descrição</th>
-                <th>Classificação</th>
                 <th>Aberto em</th>
-                <th>Finalizado em</th>
+                <th>Observação</th>
                 <th>Situação</th>
                 <th>Ação</th>
 
@@ -37,12 +36,12 @@
                     <td><%= chama.getId()%></td>
                     <td><%= chama.getEmail()%></td>
                     <td><%= chama.getDescricao_chamado()%></td>
-                    <td><%= chama.getDescricao_classifica()%></td>
                     <td><%= chama.getData_inicial()%></td>
-                    <td><%= chama.getData_final()%></td>
+                    <td><%= chama.getObservacao()%></td>
                     <td><%= chama.getEstado()%></td>
-                    <td><a href='/WebChamados/acao?param=addItem&id=<%= chama.getId()%>'><button style="background: #2E2E2E; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">+</button></a>
-                        <a href='/WebChamados/acao?param=finalizarChamado&id=<%= chama.getId()%>'><button style="background: #FF0000; border-radius: 6px; padding: 5px; cursor: pointer; color: #fff; border: none; font-size: 10px;">Finalizar</button></a>
+                    <td><a href='/WebChamados/acao?param=atenderChamado&id=<%= chama.getId()%>'<input type="button" class="btn btn-success" value="Atender">Atender</a>
+                        <a href='/WebChamados/acao?param=editarChamado&id=<%= chama.getId()%>'<input type="button" class="btn btn-primary" value="Editar">Editar</a>
+                        <a href='/WebChamados/acao?param=finalizarChamado&id=<%= chama.getId()%>'<input type="button" class="btn btn-danger" value="Finalizar">Finalizar</a>
                     <td>
                 </tr>
 

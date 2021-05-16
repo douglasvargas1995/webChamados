@@ -175,7 +175,37 @@ public class LoginDAO implements IDAO<Login> {
 
     @Override
     public ArrayList<Login> consultar(String criterio) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        ArrayList<Login> usuarios;
+        usuarios = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * "
+                    + "FROM login "
+                    + "WHERE nome ilike '%" + criterio + "%' "
+                    + "AND estado = 'A' "
+                    + "ORDER BY nome";
+
+            ResultSet retorno = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+
+            while (retorno.next()) {
+                Login u = new Login();
+
+                u.setId(retorno.getInt("id"));
+                u.setNome(retorno.getString("nome"));
+                u.setSobrenome(retorno.getString("sobrenome"));
+                u.setEmail(retorno.getString("email"));
+                u.setEstado(retorno.getString("estado"));
+
+                usuarios.add(u);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar login: " + e);
+            return null;
+        }
+
+        return usuarios;
     }
 
     @Override

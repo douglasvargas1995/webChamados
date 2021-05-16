@@ -45,7 +45,7 @@
                     <input required="required" type="text" name="sobrenome" pattern="[a-zA-Z\s]+$" value="<%= login.getSobrenome()%>" placeholder="Digite seu sobrenome" data-required data-only-letters>
                 </div>
                 <div class="half-box spacing">
-                    <label for="lastname">Senha</label>
+                    <label for="pass">Senha</label>
                     <input required="required"type="password" name="senha" value="<%= login.getSenha()%>" placeholder="Digite sua senha" data-password-validate data-required>
                 </div>
                 <div class="half-box">
