@@ -108,7 +108,7 @@ public class acao extends HttpServlet {
 
             if (categ != null) {
 
-                // request.setAttribute("objCategoria", categ);
+                //request.setAttribute("objCategoria", categ);
                 encaminharPagina("cadastroCategoria.jsp", request, response);
             } else {
                 encaminharPagina("erro.jsp", request, response);
@@ -168,7 +168,7 @@ public class acao extends HttpServlet {
 
                 request.setAttribute("paginaRetorno", "chamado.jsp");
 
-                encaminharPagina("chamado.jsp", request, response);
+                encaminharPagina("cadastraChamado.jsp", request, response);
                 //exibir um alert
             } else {
                 // deu errado
@@ -345,7 +345,7 @@ public class acao extends HttpServlet {
                     HttpSession sessao = ((HttpServletRequest) request).getSession();
 
                     sessao.setAttribute("usuarioLogado", email);
-                    encaminharPagina("chamado.jsp", request, response);
+                    encaminharPagina("inicial.jsp", request, response);
 
                 } else if ("n".equals(loginOk)) {
                     // senha errada

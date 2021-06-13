@@ -12,10 +12,16 @@ import entidade.Chamado;
 import entidade.Classifica;
 import entidade.Data;
 import entidade.Item_chamado;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
  *
@@ -36,7 +42,7 @@ public class ChamadoDAO implements IDAO<Chamado> {
                     + " 'ABERTO',"
                     + " '" + chamado.getDescricao() + "',"
                     + " 0.0,"
-                    + " '" + chamado.getObservacao() + "')";           
+                    + " '" + chamado.getObservacao() + "')";
 
             System.out.println("SQL: " + sql);
 
@@ -77,7 +83,7 @@ public class ChamadoDAO implements IDAO<Chamado> {
         }
 
         return saida;
-        
+
     }
 
     @Override
@@ -290,7 +296,7 @@ public class ChamadoDAO implements IDAO<Chamado> {
         try {
             Statement st = ConexaoBD.getInstance().getConnection().createStatement();
 
-            String sql = "SELECT it.id,it.id_chamado,it.id_categoria,it.id_classifica,it.descricao AS descricao_item,cl.descricao AS descricao_classifica,it.valor "
+            String sql = "SELECT it.id,it.quantidade,it.id_chamado,it.id_categoria,it.id_classifica,it.descricao AS descricao_item,cl.descricao AS descricao_classifica,it.valor "
                     + "FROM item_chamado it "
                     + "INNER JOIN classifica cl on cl.id = it.id_classifica "
                     + "where id_chamado = " + id;
@@ -301,6 +307,7 @@ public class ChamadoDAO implements IDAO<Chamado> {
                 Item_chamado i = new Item_chamado();
 
                 i.setId(resultado.getInt("id"));
+                i.setQuantidade(resultado.getInt("quantidade"));
                 i.setId_categoria(resultado.getInt("id_categoria"));
                 i.setId_classifica(resultado.getInt("id_classifica"));
                 i.setClassificacao(resultado.getString("descricao_classifica"));
@@ -319,7 +326,7 @@ public class ChamadoDAO implements IDAO<Chamado> {
         return itens;
 
     }
-    
+
     public String excluirItem(int id) {
         String saida = null;
         try {
@@ -332,17 +339,170 @@ public class ChamadoDAO implements IDAO<Chamado> {
             System.out.println("sql: " + sql);
 
             int resultado = st.executeUpdate(sql);
-            
+
             if (resultado != 0) {
                 saida = "ok";
             } else {
                 saida = "Erro";
             }
-            
+
         } catch (Exception e) {
             System.out.println("Erro excluir item de chamado = " + e);
             return e.toString();
         }
         return saida;
     }
+
+    //metodo recebe id do chamado e soma todos os itens com suas respectivas quantidades
+    public Chamado somaItens(int id) {
+        Chamado c = null;
+
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "SELECT SUM((valor * quantidade)) AS total "
+                    + "FROM item_chamado where id_chamado = " + id;
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                c = new Chamado();
+
+                c.setValor_total(resultado.getDouble("total"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar soma dos itens do chamado: " + e);
+        }
+
+        return c;
+    }
+
+    public ArrayList<Chamado> consultarChamado(String criterio, String dt_inicial, String dt_final, String estado) {
+        ArrayList<Chamado> chamados = new ArrayList();
+
+        if ("1".equals(estado)) {
+            estado = "ABERTO";
+        } else if ("2".equals(estado)) {
+            estado = "FINALIZADO";
+        }
+
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "select c.id,l.email,c.id_login,c.data_inicial, c.data_final, c.estado, c.descricao, c.valor_total, c.observacao from chamado c INNER JOIN login l on l.id = c.id_login "
+                    + "WHERE c.data_inicial BETWEEN '" + dt_inicial + "' "
+                    + "AND '" + dt_final + "' "
+                    + "AND c.estado = '" + estado + "' "
+                    + "AND c.descricao ilike '%" + criterio + "%' "
+                    + "order by c.descricao";
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                Chamado c = new Chamado();
+
+                c.setId(resultado.getInt("id"));
+                c.setEmail(resultado.getString("email"));
+                c.setId_login(resultado.getInt("id_login"));
+                c.setData_inicial(resultado.getDate("data_inicial"));
+                c.setData_final(resultado.getDate("data_final"));
+                c.setEstado(resultado.getString("estado"));
+                c.setDescricao(resultado.getString("descricao"));
+                c.setValor_total(resultado.getDouble("valor_total"));
+                c.setObservacao(resultado.getString("observacao"));
+
+                chamados.add(c);
+            }
+            System.out.println("-->" + sql);
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar chamados com filtro: " + e);
+        }
+
+        return chamados;
+    }
+
+    public String salvarItem(Item_chamado item) {
+        try {
+            Statement stm = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "Insert into item_chamado values "
+                    + "(default,"
+                    + " " + item.getId_categoria() + " ,"
+                    + " " + item.getId_classifica() + " ,"
+                    + " " + item.getValor() + " ,"
+                    + " '" + item.getDescricao() + "' ,"
+                    + " " + item.getId_chamado() + " ,"
+                    + " " + item.getQuantidade() + ")";
+
+            System.out.println("SQL: " + sql);
+
+            int resultado = stm.executeUpdate(sql);
+
+            return null;
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar item de chamado: " + e);
+            return e.toString();
+        }
+    }
+
+    public byte[] gerarRelatorio() {
+
+        try {
+            Connection conn = ConexaoBD.getInstance().getConnection();
+
+            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/relchamados.jrxml"));
+
+            Map parameters = new HashMap();
+
+            byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
+
+            return bytes;
+        } catch (Exception e) {
+            System.out.println("erro ao gerar relatorio: " + e);
+        }
+        return null;
+    }
+
+    public byte[] gerarRelatorioFiltros(Chamado chamado) {
+        
+        System.out.println("entro pra gerar relatorio");
+        try {
+            Connection conn = ConexaoBD.getInstance().getConnection();
+
+            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/relchamadosfiltros.jrxml"));
+
+            Map parameters = new HashMap();
+
+            parameters.put("data_inicial", chamado.getData_inicial());
+            parameters.put("data_final", chamado.getData_final());
+            parameters.put("estado", chamado.getEstado());
+
+            byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
+
+            return bytes;
+        } catch (Exception e) {
+            System.out.println("erro ao gerar relatorio: " + e);
+        }
+        return null;
+    }
+    
+    public int consultaQtdeChamado(String situacao) {
+
+        String sql = "select count(id) as quantidade from chamado where estado = '" + situacao + "'";
+
+        try {
+
+            ResultSet resultado = new ConexaoBD().getConnection().createStatement().executeQuery(sql);
+            if (resultado.next()) {
+                int quantidade = Integer.parseInt(resultado.getString("quantidade"));
+                return quantidade;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao encontrar chamado = " + e.toString());
+        }
+        return 0;
+    }
+
 }

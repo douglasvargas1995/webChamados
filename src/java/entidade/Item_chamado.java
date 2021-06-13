@@ -14,6 +14,15 @@ public class Item_chamado {
     private String descricao;
     private String categoria;
     private String classificacao;
+    private int quantidade;
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public String getCategoria() {
         return categoria;

@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Cadastro de chamados</title>
+    <title>Ticket de chamado</title>
     <link rel="stylesheet" href="css/style2.css">
     <%
         Chamado chamado = (Chamado) request.getAttribute("objChamado");
@@ -35,7 +35,7 @@
     <%@include file="menu.jsp" %>
     <body>        
         <div id="main-container">
-            <h1>Cadastro de chamado</h1>
+            <h1>Ticket de Chamado</h1>
             <form name='formChamado' method='post' action='/WebChamados/acao?param=salvarChamado'>
                 <input type="hidden" name="id" value="<%= chamado.getId()%>">
                 <div class="full-box">
@@ -59,7 +59,6 @@
                 <br>
         </div>
         <p class="error-validation template"></p>
-        <script src="js/scriptCadastroLogin.js"></script>
         <%@include file="listachamado.jsp" %>
     </body>
 </html>

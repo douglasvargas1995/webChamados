@@ -3,12 +3,18 @@ package dao;
 import apoio.ConexaoBD;
 import apoio.IDAO;
 import entidade.Login;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
@@ -56,7 +62,7 @@ public class LoginDAO implements IDAO<Login> {
                     + " '" + objeto.getSobrenome() + "',"
                     + " '" + objeto.getEmail() + "',"
                     + " '" + objeto.getSenha() + "',"
-                    + " '" + objeto.getEstado() + "')";
+                    + " 'A')";
 
             System.out.println("SQL: " + sql);
 
@@ -82,10 +88,8 @@ public class LoginDAO implements IDAO<Login> {
                     + "sobrenome = '" + o.getSobrenome() + "', "
                     + "email = '" + o.getEmail() + "', "
                     + "senha = '" + o.getSenha() + "', "
-                    + "estado = '" + o.getEstado() + "' "
+                    + "estado = 'A' "
                     + "where id = " + o.getId();
-
-            System.out.println("SQL: " + sql);
 
             int retorno = stm.executeUpdate(sql);
 
@@ -144,7 +148,7 @@ public class LoginDAO implements IDAO<Login> {
                     + "from "
                     + "login "
                     + "WHERE estado = 'A' "
-                    + "order by nome";
+                    + "order by id";
 
             ResultSet resultado = st.executeQuery(sql);
 
@@ -175,7 +179,7 @@ public class LoginDAO implements IDAO<Login> {
 
     @Override
     public ArrayList<Login> consultar(String criterio) {
-        
+
         ArrayList<Login> usuarios;
         usuarios = new ArrayList<>();
 
@@ -277,7 +281,7 @@ public class LoginDAO implements IDAO<Login> {
             return "n";
         }
     }
-    
+
     public byte[] gerarRelatorio() {
         try {
             Connection conn = ConexaoBD.getInstance().getConnection();
@@ -295,4 +299,71 @@ public class LoginDAO implements IDAO<Login> {
         return null;
     }
 
+    public boolean cadastrarLogin(HttpServletRequest request, HttpServletResponse response) {
+        Login u = new Login();
+
+        boolean ok = false;
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        u.setId(id);
+        u.setNome(request.getParameter("nome"));
+        u.setSobrenome(request.getParameter("sobrenome"));
+        u.setEmail(request.getParameter("email"));
+        u.setSenha(request.getParameter("senha"));
+        u.setContrasenha(request.getParameter("contrasenha"));
+        u.setEstado(request.getParameter("estado"));
+
+        String retorno = "";
+
+        if (!"".equals(u.getNome()) && !"".equals(u.getSobrenome()) && !"".equals(u.getEmail()) && !"".equals(u.getSenha()) && (u.getSenha().equals(u.getContrasenha()))) {
+            if (id == 0) {
+
+                retorno = new LoginDAO().salvar(u);
+
+            } else {
+                retorno = new LoginDAO().atualizar(u);
+            }
+        }
+
+        if (retorno == null) {
+            ok = true;
+        } else {
+            ok = false;
+        }
+
+        return ok;
+    }
+
+    public int consultaQtdeUsuario(String situacao) {
+
+        String sql = "select count(id) as quantidade from login where estado = '" + situacao + "'";
+
+        try {
+
+            ResultSet resultado = new ConexaoBD().getConnection().createStatement().executeQuery(sql);
+            if (resultado.next()) {
+                int quantidade = Integer.parseInt(resultado.getString("quantidade"));
+                return quantidade;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao encontrar usuario = " + e.toString());
+        }
+        return 0;
+    }
+    
+    public boolean netIsAvaliable() {
+        try {
+            final URL url = new URL("http://google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
+
+    }
 }

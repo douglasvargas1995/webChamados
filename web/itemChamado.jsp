@@ -12,29 +12,31 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<script type="text/javascript">
+
+</script>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ticket Chamado - Itens</title>
     </head>
     <body>
         <%
-        Chamado chamado = (Chamado) request.getAttribute("objChamado");
+            Chamado chamado = (Chamado) request.getAttribute("objChamado");
 
-        if (chamado == null) {
-            chamado = new Chamado();
+            if (chamado == null) {
+                chamado = new Chamado();
 
-            chamado.setId(0);
-            chamado.setDescricao("");
-            chamado.setData_inicial(null);
-            chamado.setData_final(null);
-            chamado.setEstado("");
-            chamado.setId_login(0);
-            chamado.setId_item_chamado(0);
-            chamado.setObservacao("");
+                chamado.setId(0);
+                chamado.setDescricao("");
+                chamado.setData_inicial(null);
+                chamado.setData_final(null);
+                chamado.setEstado("");
+                chamado.setId_login(0);
+                chamado.setId_item_chamado(0);
+                chamado.setObservacao("");
 
-        }
-    %>
+            }
+        %>
         <%
             Categoria categoria = (Categoria) request.getAttribute("objItemCategoria");
 
@@ -53,17 +55,17 @@
 
         <h2>Dados do Ticket - Chamado</h2>
         <label>Código</label>
-        <input type="hidden" name="id_chama" value="<%= chamado.getId()%>">
-        <input type="text" id="disabledInput" name="id_chama" value="<%= chamado.getId()%>" disabled="">
+        <input type="hidden" name="id" value="<%= chamado.getId()%>">
+        <input type="text" name="id_chamado" value="<%= chamado.getId()%>" disabled="">
 
         <label>Descrição</label>
-        <input type="text" id="disabledInput" name="descricao_chamado" value="<%= chamado.getDescricao()%>" disabled="">
+        <input type="text" name="descricao_chamado" value="<%= chamado.getDescricao()%>" disabled="">
 
         <label>Situação</label>
-        <input type="text" id="disabledInput" name="estado_chamado" value="<%= chamado.getEstado()%>" disabled="">
-        
+        <input type="text" name="estado_chamado" value="<%= chamado.getEstado()%>" disabled="">
+
         <label>Data Abertura</label>
-        <input type="text" id="disabledInput" name="datainicial" value="<%= chamado.getData_inicial()%>" disabled="">
+        <input type="text" name="datainicial" value="<%= chamado.getData_inicial()%>" disabled="">
 
         <br>
         <br>
@@ -78,7 +80,8 @@
                 <th>#</th>
                 <th>Descrição</th>
                 <th>Classificação</th>
-                <th>Valor Hora</th>
+                <th>Valor Hora R$</th>
+                <th>Qtde</th>
                 <th>Ação</th>
 
                 <%
@@ -90,7 +93,8 @@
                     <td><%= item.getDescricao()%></td>
                     <td><%= item.getClassificacao()%></td>
                     <td><%= item.getValor()%></td>
-                    <td><a href='/WebChamados/itensChamado?param=exItemChamado&id=<%= item.getId()%>'<input type="button" class="btn-sm btn-danger" value="Remover">Remover</a>
+                    <td><%= item.getQuantidade()%></td>
+                    <td><a href='/WebChamados/itensChamado?param=exItemChamado&id=<%= item.getId()%>&id_chamado=<%=chamado.getId()%>'<input type="button" class="btn-sm btn-danger" value="Remover">Remover</a>
                     <td>
 
 
@@ -105,53 +109,65 @@
         <br>
         <br> 
 
-        <a href='menu.jsp'>Voltar</a>
+        <a href='cadastraChamado.jsp'>Voltar</a>
         <br>
-
-        <h3>Total: R$ 102.80</h3>
+        <%
+            Chamado soma_itens = new ChamadoDAO().somaItens(chamado.getId());
+        %>
+        <h3>Total: R$ <%= soma_itens.getValor_total()%></h3>
         <br>
 
         <hr>
         <h6>Pesquisa de itens</h6>
 
         <form method="post" action="/WebChamados/itensChamado?param=pesquisaItensCategoria">
+            
+            <input type="text" name="id_chamado" value="<%= chamado.getId()%>">
 
             <input type="text" name="campoDeBusca" placeholder="Digite o que deseja pesquisar">
 
             <input type="submit" value="Pesquisar">
 
-
         </form>
 
+
         <br>
-        <label>Código</label>
-        <input type="text" id="disabledInput" name="id" value="<%= categoria.getId()%>" disabled="">
+        <form name='' method='post' action='/WebChamados/itensChamado?param=inserirItemChamado'>
+            <label>Código Chamado</label>
+            <input size ="2" type="text" name="chamado" value="<%= chamado.getId()%>" required="">
+            
+            <label>Código</label>
+            <input size ="2" type="text" name="categoria" value="<%= categoria.getId()%>" required="">
 
-        <label>Descrição</label>
-        <input type="text" id="disabledInput" name="descricao" value="<%= categoria.getDescricao()%>" disabled="">
+            <label>Descrição</label>
+            <input type="text" name="descricao" value="<%= categoria.getDescricao()%>" required="">
+            
+            <label>R$</label>
+            <input size ="2" type="text" name="valor" value="<%= categoria.getValor()%>" required="">
 
-        <label>Qtde de horas</label>
-        <input type="text" name="qtde" id="qtde">
-        <select name="comboClassificao" >
-            <option value="0">Selecione Classificação</option>
+            <label>Qtde de horas</label>
+            <input type="number" name="quantidade" required="">
 
-            <%
-                ArrayList<Classifica> clas = new ChamadoDAO().consultarClassificacao();
+            <select name="classificacao" id="classificacao" required="">
+                <option value="0">Selecione Classificação</option>
 
-                for (int i = 0; i < clas.size(); i++) {
-            %>           
-            <option value="<%= clas.get(i).getId()%>"><%= clas.get(i).getDescricao()%></option>
-            <%
-                }
-            %>
-        </select>
+                <%
+                    ArrayList<Classifica> clas = new ChamadoDAO().consultarClassificacao();
 
-        <input type="button" class="btn-sm btn-primary" value="Inserir">
-
+                    for (int i = 0; i < clas.size(); i++) {
+                %>           
+                <option value="<%= clas.get(i).getId()%>"><%= clas.get(i).getDescricao()%></option>
+                <%
+                    }
+                %>
+            </select>
+            
+            <input type="submit" class="btn-sm btn-primary" value="Inserir">
+            
+        </form>
         <%
             ArrayList<Categoria> categs = (ArrayList) request.getAttribute("categoriasPesquisa");
- 
-            
+
             if (categs != null) {
 
                 if (categs.size() == 0) {
@@ -182,7 +198,7 @@
                     <td><%= categ.getDescricao()%></td>
                     <td><%= categ.getValor()%></td>
                     <td><%= categ.getSituacao()%></td>
-                    <td><a href='/WebChamados/itensChamado?param=addCategoria&id=<%= categ.getId()%>'<input type="button" class="btn-sm btn-outline-success" value="Selecionar">Selecionar</a>
+                    <td><a href='/WebChamados/itensChamado?param=addCategoria&id=<%= categ.getId()%>&id_chamado=<%=chamado.getId()%>'<input type="button" class="btn-sm btn-outline-success" value="Selecionar">Selecionar</a>
                 </tr>
 
                 <%
@@ -195,5 +211,9 @@
                 }
             }
         %>
+    
+         <br>
+
+        <hr> 
     </body>
 </html>

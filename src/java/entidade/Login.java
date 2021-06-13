@@ -11,6 +11,15 @@ public class Login {
     private String sobrenome;
     private String email;
     private String senha;
+    private String contrasenha;
+
+    public String getContrasenha() {
+        return contrasenha;
+    }
+
+    public void setContrasenha(String contrasenha) {
+        this.contrasenha = contrasenha;
+    }
     private String estado;
 
     public int getId() {
