@@ -175,9 +175,11 @@ public class itensChamado extends HttpServlet {
             ArrayList<Chamado> chamados = new ChamadoDAO().consultarChamado(criterio, dt_inicial, dt_final, estado);
 
             request.setAttribute("objPesquisaChamado", chamados);
-
+            //request.setAttribute("objChamado", chamados);
             encaminharPagina("chamado.jsp", request, response);
         }
+        
+        
         
         //gerar relatório chamados com filtros
         if (param.equals("gerarRelatorioChamado")) {

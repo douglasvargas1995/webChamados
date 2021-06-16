@@ -15,7 +15,12 @@ import entidade.Item_chamado;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -464,29 +469,45 @@ public class ChamadoDAO implements IDAO<Chamado> {
         return null;
     }
 
-    public byte[] gerarRelatorioFiltros(Chamado chamado) {
+    public byte[] gerarRelatorioFiltros(String dataIni, String dataFim, String estado, String descricao) throws ParseException {
+
+        if ("1".equals(estado)) {
+            estado = "ABERTO";
+        } else if ("2".equals(estado)) {
+            estado = "FINALIZADO";
+        }
         
-        System.out.println("entro pra gerar relatorio");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        java.sql.Date dt1 = new java.sql.Date(format.parse(dataIni).getTime());
+        java.sql.Date dt2 = new java.sql.Date(format.parse(dataFim).getTime());
+        
+        System.out.println("-"+estado);
+        System.out.println("-"+dt1);
+        System.out.println("-"+dt2);
+
         try {
             Connection conn = ConexaoBD.getInstance().getConnection();
 
-            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/relchamadosfiltros.jrxml"));
+            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/chamac.jrxml"));
 
             Map parameters = new HashMap();
 
-            parameters.put("data_inicial", chamado.getData_inicial());
-            parameters.put("data_final", chamado.getData_final());
-            parameters.put("estado", chamado.getEstado());
+            parameters.put("dt1", dt1);
+            parameters.put("dt2", dt2);
+            parameters.put("estado", estado);
+            parameters.put("descricao", descricao);
+            
 
             byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
 
             return bytes;
+
         } catch (Exception e) {
             System.out.println("erro ao gerar relatorio: " + e);
         }
         return null;
     }
-    
+
     public int consultaQtdeChamado(String situacao) {
 
         String sql = "select count(id) as quantidade from chamado where estado = '" + situacao + "'";

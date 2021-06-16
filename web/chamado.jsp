@@ -50,12 +50,13 @@
 
             <input type="submit" value="Pesquisar">
             
+            
+            
 
         </form>
         <br>
          <%
             ArrayList<Chamado> c = (ArrayList) request.getAttribute("objPesquisaChamado");
- 
             
             if (c != null) {
 
