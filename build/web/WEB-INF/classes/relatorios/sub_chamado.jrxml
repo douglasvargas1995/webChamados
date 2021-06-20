@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_chamado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2723d048-a72e-42df-be27-2bdb95515789">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="WebChamados"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="id_chamado" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT it.id,it.quantidade,it.id_chamado,it.id_categoria,it.id_classifica,it.descricao AS descricao_item,cl.descricao 
+AS descricao_classifica,it.valor
+FROM item_chamado it
+INNER JOIN classifica cl on cl.id = it.id_classifica
+where id_chamado = $P{id_chamado}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_chamado"/>
+	</field>
+	<field name="quantidade" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="quantidade"/>
+		<property name="com.jaspersoft.studio.field.label" value="quantidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_chamado"/>
+	</field>
+	<field name="id_chamado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_chamado"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_chamado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_chamado"/>
+	</field>
+	<field name="id_categoria" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_categoria"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_categoria"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_chamado"/>
+	</field>
+	<field name="id_classifica" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_classifica"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_classifica"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_chamado"/>
+	</field>
+	<field name="descricao_item" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descricao_item"/>
+		<property name="com.jaspersoft.studio.field.label" value="descricao_item"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_chamado"/>
+	</field>
+	<field name="descricao_classifica" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descricao_classifica"/>
+		<property name="com.jaspersoft.studio.field.label" value="descricao_classifica"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="classifica"/>
+	</field>
+	<field name="valor" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valor"/>
+		<property name="com.jaspersoft.studio.field.label" value="valor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item_chamado"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="111" height="20" uuid="522abb92-8548-4817-84f0-e4a597f2dae0"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="111" height="20" uuid="c7973874-cb4d-4db7-8e38-b9a87d55dbe7"/>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="20" uuid="77331ef7-c862-42cc-8e99-7915eb1afbde"/>
+				<textFieldExpression><![CDATA[$F{descricao_item}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="20" uuid="aed630bc-3d3f-4007-8453-843e43e8287a"/>
+				<textFieldExpression><![CDATA[$F{descricao_classifica}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="111" height="20" uuid="00cac07a-c86a-442d-96f6-9f7d062962b3"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -4,6 +4,7 @@
     Author     : Douglas
 --%>
 
+<%@page import="entidade.Formatacao"%>
 <%@page import="dao.ChamadoDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entidade.Chamado"%>
@@ -88,7 +89,7 @@
                     <td><%= chama.getId()%></td>
                     <td><%= chama.getEmail()%></td>
                     <td><%= chama.getDescricao()%></td>
-                    <td><%= chama.getData_inicial()%></td>
+                    <td><%= Formatacao.ajustaDataDMA(String.valueOf(chama.getData_inicial()))%></td>
                     <td><%= chama.getObservacao()%></td>
                     <td><%= chama.getEstado()%></td>
                     <td><a href='/WebChamados/acao?param=atenderChamado&id=<%= chama.getId()%>'<input type="button" class="btn btn-success" value="Atender">Atender</a>

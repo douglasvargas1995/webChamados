@@ -4,13 +4,14 @@
     Author     : Douglas
 --%>
 
+<%@page import="entidade.Formatacao"%>
 <%@page import="entidade.Chamado"%>
 <%@page import="entidade.Classifica"%>
 <%@page import="entidade.Categoria"%>
 <%@page import="dao.ChamadoDAO"%>
 <%@page import="entidade.Item_chamado"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8" import="java.sql.*"%>
 <!DOCTYPE html>
 <script type="text/javascript">
 
@@ -65,7 +66,7 @@
         <input type="text" name="estado_chamado" value="<%= chamado.getEstado()%>" disabled="">
 
         <label>Data Abertura</label>
-        <input type="text" name="datainicial" value="<%= chamado.getData_inicial()%>" disabled="">
+        <input type="text" name="datainicial" value="<%= Formatacao.ajustaDataDMA(String.valueOf(chamado.getData_inicial()))%>" disabled="">
 
         <br>
         <br>
@@ -214,6 +215,18 @@
     
          <br>
 
-        <hr> 
+        <hr>
+        
+        <form method="post" action="/WebChamados/itensChamado?param=finalizarChamado">
+            
+            <label>Código Chamado</label>
+            <input type="text" name="id" value="<%= chamado.getId()%>" required="">
+
+            <label>R$</label>
+            <input type="text" name="valor" value="<%=soma_itens.getValor_total()%>" required="">
+
+            <input type="submit" class = "btn-danger" value="Finalizar">
+
+        </form>
     </body>
 </html>

@@ -59,12 +59,11 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown05">
+                            <ul class="dropdown-menu" aria-labelledby="dropdown04">
                                 <li><a class="dropdown-item" href="cadastroLogin.jsp">Login</a></li>
                                 <li><a class="dropdown-item" href="cadastroCategoria.jsp">Categoria</a></li>
                                 <li><a class="dropdown-item" href="cadastraChamado.jsp">Chamado</a></li>
-                                <li><a class="dropdown-item" href="itemChamado.jsp">item chamado</a></li>
-                                <li><a class="dropdown-item" href="chamado.jsp">Chamado central</a></li>
+                                <li><a class="dropdown-item" href="chamado.jsp">Chamado Buscar</a></li>
 
                             </ul>
                         </li>

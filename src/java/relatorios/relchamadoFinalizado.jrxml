@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0cafe9a-ad45-4f75-81be-853ae9568c06">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="WebChamados"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="129"/>
+	<parameter name="id_chamado" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Douglas\\Desktop\\PPA\\Web\\webChamados\\src\\java\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select c.id,l.email,c.id_login,c.data_inicial, c.data_final, c.estado, c.descricao, c.valor_total, c.observacao
+from chamado c INNER JOIN login l on l.id = c.id_login
+WHERE c.id = $P{id_chamado}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="chamado"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="login"/>
+	</field>
+	<field name="id_login" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_login"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_login"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="chamado"/>
+	</field>
+	<field name="data_inicial" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="data_inicial"/>
+		<property name="com.jaspersoft.studio.field.label" value="data_inicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="chamado"/>
+	</field>
+	<field name="data_final" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="data_final"/>
+		<property name="com.jaspersoft.studio.field.label" value="data_final"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="chamado"/>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="estado"/>
+		<property name="com.jaspersoft.studio.field.label" value="estado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="chamado"/>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="chamado"/>
+	</field>
+	<field name="valor_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valor_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="valor_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="chamado"/>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="observacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="chamado"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="100" height="100" uuid="5af4b024-448c-4e14-a81d-4e743e441345"/>
+				<imageExpression><![CDATA["C:/Users/Douglas/Desktop/PPA/Web/webChamados/web/img/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="103" y="70" width="173" height="30" uuid="e2ab808a-eea4-46c9-a7e4-72526b19c905"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ticket de Chamado
+]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="555" height="22" forecolor="#000000" backcolor="#050505" uuid="d273e9f9-b0df-486f-a6c3-0dac8d8918e2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="408" y="1" width="144" height="20" forecolor="#FFFFFF" uuid="66d7ef18-2a80-41c0-90df-61aebb82c2f9"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="100" y="0" width="280" height="63" uuid="31dab9ff-3cfa-4771-b90f-1f55f91d9527"/>
+				<textElement>
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Web chamados]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="520" y="0" width="35" height="30" uuid="6ea156e1-5c1b-404b-9c22-1efa882aa516"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="310" splitType="Stretch">
+			<textField>
+				<reportElement x="50" y="0" width="40" height="30" uuid="50a6b36e-56ce-4ddf-a00b-fddedfe6440d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="50" height="30" uuid="4757e816-8029-4226-8fd6-445cdaf2ba09"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="0" width="300" height="30" uuid="b81c472f-9d4b-4937-a8f8-feb954f72854"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="0" width="80" height="30" uuid="baed103e-151d-4c27-a701-245f5e15d173"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Solicitante]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="33" width="330" height="30" uuid="2cdb063a-4b19-40e8-a9d3-eaee440056a0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="33" width="141" height="30" uuid="bab21678-0651-4416-85e3-eee0cb5df0b9"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição do ticket]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="80" width="266" height="30" uuid="dc066df3-ade7-4ca0-bea4-08b2fc86cd87"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição dos serviços realizados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="80" width="40" height="30" uuid="ff245e1f-055a-49b3-8e3c-c921485055e6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="310" y="80" width="100" height="30" uuid="cf964a83-ef89-4001-90d4-ca35a5bb34e4"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="110" width="552" height="135" uuid="1d5a05b6-0896-498a-a038-0a236fcbe65d"/>
+				<subreportParameter name="id_chamado">
+					<subreportParameterExpression><![CDATA[$P{REPORT_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "sub_chamado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="181" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="151" width="100" height="30" uuid="002be5c3-fa1e-424b-92af-8494a3d55180"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="330" y="151" width="125" height="30" uuid="d9b2d636-b113-49d7-8653-cc05deea358d"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total R$]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="-13" y="110" width="343" height="30" uuid="41c46db0-2195-4498-aa3b-9d0471d589cd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-13" y="78" width="73" height="30" uuid="d5bf7853-2a76-458c-95b1-09dc4f712806"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-13" y="42" width="55" height="30" uuid="ec84c288-bbf9-4b01-ad14-c2e946710426"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Finalizado]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="41" y="42" width="95" height="30" uuid="865e10c9-6061-4dbb-ad2c-42e21f92c713"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_final}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="10" width="95" height="30" uuid="677ce001-d760-4d06-8435-bcdf0f432b50"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_inicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-13" y="10" width="48" height="30" uuid="a045809f-ba55-423f-ac19-29094f636d3a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aberto]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

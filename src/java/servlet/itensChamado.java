@@ -91,6 +91,17 @@ public class itensChamado extends HttpServlet {
             }
 
         }
+        
+        if (param.equals("gerar")) {
+
+            String id = request.getParameter("id");
+
+            Chamado chama = new ChamadoDAO().consultarId(Integer.parseInt(id));
+
+            request.setAttribute("objChamado", chama);
+
+            encaminharPagina("relChamadoFinalizado.jsp", request, response);
+        }
 
         //EXCLUIR ITEM DE CHAMADO
         if (param.equals("exItemChamado")) {
@@ -178,28 +189,9 @@ public class itensChamado extends HttpServlet {
             //request.setAttribute("objChamado", chamados);
             encaminharPagina("chamado.jsp", request, response);
         }
-        
-        
-        
+
         //gerar relatório chamados com filtros
-        if (param.equals("gerarRelatorioChamado")) {
-            
-            String criterio = request.getParameter("campoDeBusca");
-            String dt_inicial = request.getParameter("dataIni");
-            String dt_final = request.getParameter("dataFim");
-            String estado = request.getParameter("estado");
-
-            System.out.println("CampoDeBusca: " + criterio);
-            System.out.println("Data Inicial: " + dt_inicial);
-            System.out.println("Data Final: " + dt_final);
-            System.out.println("Estado: " + estado);
-
-            ArrayList<Chamado> chamados = new ChamadoDAO().consultarChamado(criterio, dt_inicial, dt_final, estado);
-
-            request.setAttribute("objChamado", chamados);
-
-            encaminharPagina("relchamadosfiltros.jsp", request, response);
-        }
+        
         ///inserir item de chamado
         if (param.equals("inserirItemChamado")) {
 
@@ -210,7 +202,7 @@ public class itensChamado extends HttpServlet {
             String descricao = request.getParameter("descricao");
             int id_chamado = Integer.parseInt(request.getParameter("chamado"));
             int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-            
+
             Item_chamado item = new Item_chamado();
             item.setId_categoria(id_categoria);
             item.setId_classifica(id_classifica);
@@ -223,8 +215,8 @@ public class itensChamado extends HttpServlet {
             String retorno = null;
             if (id == 0) {
                 retorno = new ChamadoDAO().salvarItem(item);
-            } 
-            
+            }
+
             if (retorno == null) {
                 // deu certo
                 request.setAttribute("tipoCadastro", "Chamado");
@@ -274,6 +266,29 @@ public class itensChamado extends HttpServlet {
                 encaminharPagina("erro.jsp", request, response);
             }
 
+        }
+        
+        //FINALIZAR CHAMADO -ok
+        if (param.equals("finalizarChamado")) {
+
+            String retorno = null;
+            // capturar dados que vieram do REQUEST
+            int id = Integer.parseInt(request.getParameter("id"));
+            retorno = new ChamadoDAO().finalizar(id);
+
+            if ("ok".equals(retorno)) {
+                // deu certo
+                request.setAttribute("tipoCadastro", "Chamado");
+
+                request.setAttribute("paginaRetorno", "chamado.jsp");
+
+                encaminharPagina("cadastraChamado.jsp", request, response);
+
+                encaminharPagina("sucesso.jsp", request, response);
+            } else {
+                // deu errado
+                encaminharPagina("erro.jsp", request, response);
+            }
         }
     }
 

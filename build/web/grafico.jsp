@@ -78,7 +78,11 @@
                     <div class="col-md-6 col-sm-6">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                Usuários
+                                <h3>Usuários</h3>
+                                <br>
+                                Ativos   = <%= usuariosAtivo %>
+                                <br>
+                                Inativos = <%= usuariosInativo %>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -92,7 +96,11 @@
                     <div class="col-md-6 col-sm-6">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                Chamados
+                                <h3>Chamados</h3>
+                                <br>
+                                Abertos     = <%= chamadoAberto %>
+                                <br>
+                                Finalizados = <%= chamadoFechado %>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">

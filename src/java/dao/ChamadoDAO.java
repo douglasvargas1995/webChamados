@@ -12,6 +12,7 @@ import entidade.Chamado;
 import entidade.Classifica;
 import entidade.Data;
 import entidade.Item_chamado;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -183,6 +184,8 @@ public class ChamadoDAO implements IDAO<Chamado> {
 
     public String finalizar(int id) {
 
+        Chamado c = somaItens(id);
+
         String saida = null;
 
         try {
@@ -191,7 +194,8 @@ public class ChamadoDAO implements IDAO<Chamado> {
             String sql = ""
                     + "Update chamado "
                     + "set estado = 'FINALIZADO', "
-                    + "data_final = '" + Data.formatarData(new Date()) + "' "
+                    + "data_final = '" + Data.formatarData(new Date()) + "', "
+                    + "valor_total = " + c.getValor_total() + " "
                     + "WHERE id = " + id;
 
             System.out.println("sql: " + sql);
@@ -476,14 +480,14 @@ public class ChamadoDAO implements IDAO<Chamado> {
         } else if ("2".equals(estado)) {
             estado = "FINALIZADO";
         }
-        
+
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         java.sql.Date dt1 = new java.sql.Date(format.parse(dataIni).getTime());
         java.sql.Date dt2 = new java.sql.Date(format.parse(dataFim).getTime());
-        
-        System.out.println("-"+estado);
-        System.out.println("-"+dt1);
-        System.out.println("-"+dt2);
+
+        System.out.println("-" + estado);
+        System.out.println("-" + dt1);
+        System.out.println("-" + dt2);
 
         try {
             Connection conn = ConexaoBD.getInstance().getConnection();
@@ -496,7 +500,6 @@ public class ChamadoDAO implements IDAO<Chamado> {
             parameters.put("dt2", dt2);
             parameters.put("estado", estado);
             parameters.put("descricao", descricao);
-            
 
             byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
 
@@ -524,6 +527,31 @@ public class ChamadoDAO implements IDAO<Chamado> {
             System.out.println("Erro ao encontrar chamado = " + e.toString());
         }
         return 0;
+    }
+
+    public byte[] gerarRelatorioFinalizado(int id) {
+
+        System.out.println("id chamado " + id);
+
+        try {
+            Connection conn = ConexaoBD.getInstance().getConnection();
+
+            JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/relchamadoFinalizado.jrxml"));
+            
+            InputStream subInputStream = this.getClass().getResourceAsStream("sub_chamado.jasper");
+
+            Map parameters = new HashMap();
+
+            parameters.put("id_chamado", id);
+            parameters.put("REPORT_CONNECTION", subInputStream);
+
+            byte[] bytes = JasperRunManager.runReportToPdf(relatorio, parameters, conn);
+
+            return bytes;
+        } catch (Exception e) {
+            System.out.println("erro ao gerar relatorio: " + e);
+        }
+        return null;
     }
 
 }

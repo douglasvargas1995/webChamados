@@ -4,6 +4,7 @@
     Author     : Douglas
 --%>
 
+<%@page import="apoio.Formatacao"%>
 <%@page import="dao.ChamadoDAO"%>
 <%@page import="entidade.Chamado"%>
 <%@page import="java.util.ArrayList"%>
@@ -36,12 +37,13 @@
                     <td><%= chama.getId()%></td>
                     <td><%= chama.getEmail()%></td>
                     <td><%= chama.getDescricao_chamado()%></td>
-                    <td><%= chama.getData_inicial()%></td>
+                    <td><%= Formatacao.ajustaDataDMA(String.valueOf(chama.getData_inicial()))%></td>
                     <td><%= chama.getObservacao()%></td>
                     <td><%= chama.getEstado()%></td>
                     <td><a href='/WebChamados/acao?param=atenderChamado&id=<%= chama.getId()%>'<input type="button" class="btn btn-success" value="Atender">Atender</a>
                         <a href='/WebChamados/acao?param=editarChamado&id=<%= chama.getId()%>'<input type="button" class="btn btn-primary" value="Editar">Editar</a>
                         <a href='/WebChamados/acao?param=finalizarChamado&id=<%= chama.getId()%>'<input type="button" class="btn btn-danger" value="Finalizar">Finalizar</a>
+                        <a href='/WebChamados/itensChamado?param=gerar&id=<%= chama.getId()%>'<input type="button" class="btn btn-info" value="Gerar">Gerar PDF</a>
                     <td>
                 </tr>
 
